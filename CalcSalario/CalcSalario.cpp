@@ -12,31 +12,44 @@ int main(){
 	double *SalBruto, *AliqINSS = &b, *ValINSS = &c, *IR = &d;
 	double *AliqIR = &e, *ValIR = &f, *SalLiquido = &g;
 	
+	SalBruto == NULL;
+	
+	// Abre o arquivo de entrada
 	entrada = fopen("SALARIO.TXT", "r");
 	if(entrada == NULL){
 		printf("Erro ao abrir o arquivo de entrada");
 		exit(1);
 	}
 	
+	// Abre o arquivo de saída
 	saida = fopen("CALCULOS.TXT", "w");
 	if(saida == NULL){
 		printf("Erro ao criar o arquivo de saída");
 		exit(1);
 	}
 		
+	// Lê o arquivo de entrada e armazena em uma lista
 	while(fscanf(entrada, "%lf", &a) != EOF){
 		cont++;
 		SalBruto = (double *) realloc(SalBruto, sizeof(double)*cont);
 		SalBruto[cont-1] = a;
 	}
 	
+	// Ordena os Salários Brutos em ordem crescente
 	quickSort(SalBruto, 0, cont-1);
 	
+	// Faz os cálculos e escreve no arquivo
 	fprintf(saida, "    Bruto  AliqINSS   Val.INSS  Base I.R.  AliqIR   Val.IR   Liquido");
 	for(i = 0; i < cont; i++){
 		Calculo(SalBruto[i], AliqINSS, ValINSS, IR, AliqIR, ValIR, SalLiquido);
 		fprintf(saida,"\n%9.2lf %9.1lf %10.2lf %10.2lf %7.1lf %8.2lf %9.2lf", SalBruto[i], *AliqINSS*100, *ValINSS, *IR, *AliqIR*100, *ValIR, *SalLiquido);
 	}
+	
+	// Desaloca memória e fecha os arquivos
+	free(SalBruto);
+	fclose(entrada);
+	fclose(saida);
+	
 	return 0;
 }
 
@@ -109,9 +122,8 @@ void Calculo(double SalBruto, double *AliqINSS, double *ValINSS, double *IR, dou
 	
 	//Calculo do Salario Líquido e Valor IR
 	*ValIR = *IR * *AliqIR - DeducaoIR;
-	if(*ValIR < 10){
-		*ValIR = 0;
-	}
+	if(*ValIR < 10) *ValIR = 0;
+	
 	*SalLiquido = *IR - (*ValIR);
 	
 }
