@@ -1,19 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <string.h>
 
-void quickSort(double vet[], int esq, int dir);
 void Calculo(double SalBruto, double *AliqINSS, double *ValINSS, double *IR, double *AliqIR, double *ValIR, double *SalLiquido);
+void quickSort(double vet[], int esq, int dir);
+void trocaPontuacao(char *str, char ponto, char novoPonto);
 
-int main(){
+int main(int argc, char **argv){
+	setlocale(LC_ALL, "portuguese");
 	FILE *entrada, *saida;
-	int cont=0, i;
-	double a,b,c,d,e,f,g;
+	int cont = 0, i;
+	double a,b,c,d,e,f,g; // variaveis para direcionar ponteiros, para funcionar com as funções void
 	
 	double *SalBruto, *AliqINSS = &b, *ValINSS = &c, *IR = &d;
 	double *AliqIR = &e, *ValIR = &f, *SalLiquido = &g;
 	
-	SalBruto == NULL;
+	char s[sizeof(double)+1];
 	
+	SalBruto = NULL;
+	
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                               Projeto Programa 1 - Cálculo de Salários                              |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                     Adilson de Jesus Candido Oliveira - N° Matrícula/RA: 21207318                   |\n");
+	printf("|                     Carina Roberta Rodrigues da Silva - N° Matrícula/RA: 20200081                   |\n");
+	printf("|                     Diego Silva e Sousa               - N° Matrícula/RA: 21207407                   |\n");
+	printf("|                     Fabio Hideki Kina Senda           - N° Matrícula/RA: 21207120                   |\n");
+	printf("|                     Mogica Catarino Ianson            - N° Matrícula/RA: 22119766                   |\n");
+	printf("|                     Pedro Pires Ianson                - N° Matrícula/RA: 22119770                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
+
 	// Abre o arquivo de entrada
 	entrada = fopen("SALARIO.TXT", "r");
 	if(entrada == NULL){
@@ -29,12 +47,14 @@ int main(){
 	}
 		
 	// Lê o arquivo de entrada e armazena em uma lista
-	while(fscanf(entrada, "%lf", &a) != EOF){
+	while(fscanf(entrada, "%s", &s) != EOF){
+		trocaPontuacao(s, '.', ','); // troca para a funcao atof funcionar
+		a = atof(s); // transforma a string em float
 		cont++;
 		SalBruto = (double *) realloc(SalBruto, sizeof(double)*cont);
 		SalBruto[cont-1] = a;
 	}
-	
+
 	// Ordena os Salários Brutos em ordem crescente
 	quickSort(SalBruto, 0, cont-1);
 	
@@ -51,29 +71,6 @@ int main(){
 	fclose(saida);
 	
 	return 0;
-}
-
-void quickSort(double vet[], int esq, int dir){
-    int pivo = esq, i, j;
-	double ch;         
-    for(i=esq+1;i<=dir;i++){        
-        j = i;                      
-        if(vet[j] < vet[pivo]){     
-            ch = vet[j];               
-            while(j > pivo){           
-                vet[j] = vet[j-1];      
-                j--;                    
-            }
-            vet[j] = ch;               
-            pivo++;                    
-        }
-    }
-    if(pivo-1 >= esq){              
-        quickSort(vet,esq,pivo-1);      
-    }
-    if(pivo+1 <= dir){              
-        quickSort(vet,pivo+1,dir);      
-    }
 }
 
 void Calculo(double SalBruto, double *AliqINSS, double *ValINSS, double *IR, double *AliqIR, double *ValIR, double *SalLiquido){
@@ -125,5 +122,31 @@ void Calculo(double SalBruto, double *AliqINSS, double *ValINSS, double *IR, dou
 	if(*ValIR < 10) *ValIR = 0;
 	
 	*SalLiquido = *IR - (*ValIR);
-	
+}
+
+void quickSort(double vet[], int esq, int dir){
+    int pivo = esq, i, j;
+	double ch;         
+    for(i=esq+1;i<=dir;i++){        
+        j = i;                      
+        if(vet[j] < vet[pivo]){     
+            ch = vet[j];               
+            while(j > pivo){           
+                vet[j] = vet[j-1];      
+                j--;                    
+            }
+            vet[j] = ch;               
+            pivo++;                    
+        }
+    }
+    if(pivo-1 >= esq){              
+        quickSort(vet,esq,pivo-1);      
+    }
+    if(pivo+1 <= dir){              
+        quickSort(vet,pivo+1,dir);      
+    }
+}
+
+void trocaPontuacao(char *str, char ponto, char novoPonto){
+	strchr(str, ponto)[0] = novoPonto;
 }

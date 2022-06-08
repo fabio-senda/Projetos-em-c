@@ -26,14 +26,26 @@ int main(int argc, char **argv){
 	
 	prod = NULL;
 	
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                               Projeto Programa 2 - Estoque Operacional                              |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                     Adilson de Jesus Candido Oliveira - N° Matrícula/RA: 21207318                   |\n");
+	printf("|                     Carina Roberta Rodrigues da Silva - N° Matrícula/RA: 20200081                   |\n");
+	printf("|                     Diego Silva e Sousa               - N° Matrícula/RA: 21207407                   |\n");
+	printf("|                     Fabio Hideki Kina Senda           - N° Matrícula/RA: 21207120                   |\n");
+	printf("|                     Mogica Catarino Ianson            - N° Matrícula/RA: 22119766                   |\n");
+	printf("|                     Pedro Pires Ianson                - N° Matrícula/RA: 22119770                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
+	
 	// Abrir arquivos de entrada e criar arquivos de saída
-	produtos = fopen("c2_produtos.txt", "r");
-	vendas = fopen("c2_vendas.txt", "r");
-	transfere = fopen("transfere.dat", "w");
-	divergencias = fopen("diverge.dat", "w");
-	canal = fopen("canal.dat", "w");
+	produtos = fopen("PRODUTOS.txt", "r");
+	vendas = fopen("VENDAS.txt", "r");
+	transfere = fopen("TRANSFERE.txt", "w");
+	divergencias = fopen("DIVERGENCIAS.txt", "w");
+	canal = fopen("TOTCANAIS.txt", "w");
 	if(produtos == NULL || vendas == NULL){
-		printf("Erro ao abrir os arquivos de entrada");
+		printf("Erro ao tentar abrir os arquivos de entrada");
 		exit(1);
 	}
 	if(transfere == NULL || divergencias == NULL || canal == NULL){
@@ -101,6 +113,16 @@ int main(int argc, char **argv){
 	//Relatório de Transferências
 	relatorioTransfere(transfere, prod, cont);
 	
+	printf("|                                Relatórios gerados com sucesso !!!                                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
+	free(prod);
+	fclose(produtos);
+	fclose(vendas);
+	fclose(transfere);
+	fclose(divergencias);
+	fclose(canal);
+	
 	return 0;
 }
 
@@ -128,7 +150,7 @@ void relatorioTransfere(FILE *arq, Tprod *dados, int tam){
 			dados[i].transferencia = 10;
 		else
 			dados[i].transferencia = dados[i].reposicao;
-		fprintf(arq, "\n%5d %7d %6d %9d %10d %8d %11d",dados[i].codigo, dados[i].estoque, dados[i].minimo, dados[i].qntVendas, dados[i].posVendas, dados[i].reposicao, dados[i].transferencia);	
+		fprintf(arq, "\n%5d %7d %6d %9d %10d %8d %11d", dados[i].codigo, dados[i].estoque, dados[i].minimo, dados[i].qntVendas, dados[i].posVendas, dados[i].reposicao, dados[i].transferencia);	
 	}
 }
 

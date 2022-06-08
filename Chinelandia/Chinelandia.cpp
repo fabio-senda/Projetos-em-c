@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 struct Ttrocas{
 	int tipo;
@@ -11,31 +12,44 @@ struct Ttrocas{
 void contaItensIguais(int *lista, int *contador, int tamanho);
 void quickSort(Ttrocas vet[], int esq, int dir);
 
-int main(){
+int main(int argc, char **argv){
+	setlocale(LC_ALL, "portuguese");
 	FILE *entrada, *saida;
-	char nome_arquivo[] = " _in.txt";
+	char nome_arquivo[] = "?_in.txt";
 	int *e, *d, *c, tam, i, cont = 0, j, flag = 0;
 	Ttrocas *n;
 
 	n = NULL;
 	
-	// Recebe o número do arquivo
-	printf("Número do arquivo de entrada: ");
-	nome_arquivo[0] = getche();
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                                  Projeto Programa 3 - Chinelândia                                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                     Adilson de Jesus Candido Oliveira - N° Matrícula/RA: 21207318                   |\n");
+	printf("|                     Carina Roberta Rodrigues da Silva - N° Matrícula/RA: 20200081                   |\n");
+	printf("|                     Diego Silva e Sousa               - N° Matrícula/RA: 21207407                   |\n");
+	printf("|                     Fabio Hideki Kina Senda           - N° Matrícula/RA: 21207120                   |\n");
+	printf("|                     Mogica Catarino Ianson            - N° Matrícula/RA: 22119766                   |\n");
+	printf("|                     Pedro Pires Ianson                - N° Matrícula/RA: 22119770                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 	
+	// Recebe o número do arquivo
+	printf("|                        Número do arquivo de entrada (?_in.txt): ");
+	nome_arquivo[0] = getche();
+	printf("                                   |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 	// Abre os arquivos de entrada e saída
 	entrada = fopen(nome_arquivo, "r");
 	saida = fopen("saida.txt", "w");
 	if (entrada == NULL){
-		printf("Erro ao abrir o arquivo de entrada");
+		printf("\n Erro ao tentar abrir o arquivo de entrada !!!!");
 		exit(1);
 	}
 	if (saida == NULL){
-		printf("Erro ao criar o arquivo de saída");
+		printf("Erro ao tentar criar o arquivo de saída");
 		exit(1);
 	}
 	
-	// Lê o quantidade de registros do arquivo
+	// Lê a quantidade de registros do arquivo
 	fscanf(entrada, "%d", &tam);
 	e = (int *) malloc(sizeof(int)*tam);
 	d = (int *) malloc(sizeof(int)*tam);
@@ -98,6 +112,7 @@ int main(){
 	free(n);
 	fclose(entrada);
 	fclose(saida);
+	
 	return 0;
 }
 

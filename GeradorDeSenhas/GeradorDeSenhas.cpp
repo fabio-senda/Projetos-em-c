@@ -5,7 +5,7 @@
 
 void GeraSenha(int tam, char tipo, char *senha);
 
-int main(){
+int main(int argc, char **argv){
 	setlocale(LC_ALL, "portuguese");
 	FILE *entrada, *saida;
 	char tipo, *senhas, aux;
@@ -18,15 +18,23 @@ int main(){
 		exit(1);
 	}
 	
-	
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                               Projeto Programa 4 - Gerador de Senhas                                |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("|                    Adilson de Jesus Candido Oliveira - N° Matrícula/RA: 21207318                    |\n");
+	printf("|                    Carina Roberta Rodrigues da Silva - N° Matrícula/RA: 20200081                    |\n");
+	printf("|                    Diego Silva e Sousa               - N° Matrícula/RA: 21207407                    |\n");
+	printf("|                    Fabio Hideki Kina Senda           - N° Matrícula/RA: 21207120                    |\n");
+	printf("|                    Mogica Catarino Ianson            - N° Matrícula/RA: 22119766                    |\n");
+	printf("|                    Pedro Pires Ianson                - N° Matrícula/RA: 22119770                    |\n");	
 	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 	printf("|                                         Tipos de Senha:                                             |\n");
 	printf("|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-|\n");
-	printf("|   a. Numérica – conterá apenas algarismos;                                                          |\n");
-	printf("|   b. Alfabética – conterá apenas letras maiúsculas e minúsculas;                                    |\n");
-	printf("|   c. Alfanumérica 1 – conterá letras maiúsculas e algarismos;                                       |\n"); 
-	printf("|   d. Alfanumérica 2 – conterá letras maiúsculas, minúsculas e algarismos;                           |\n");
-	printf("|   e. Geral – conterá algarismos, letras e os caracteres \"-\", \"_\", \":\", \"@\", \"#\", \"$\", \"&\", \"?\"      |\n");
+	printf("|     a. Numérica – conterá apenas algarismos;                                                        |\n");
+	printf("|     b. Alfabética – conterá apenas letras maiúsculas e minúsculas;                                  |\n");
+	printf("|     c. Alfanumérica 1 – conterá letras maiúsculas e algarismos;                                     |\n"); 
+	printf("|     d. Alfanumérica 2 – conterá letras maiúsculas, minúsculas e algarismos;                         |\n");
+	printf("|     e. Geral – conterá algarismos, letras e os caracteres \"-\", \"_\", \":\", \"@\", \"#\", \"$\", \"&\", \"?\"    |\n");
 	printf("|-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-|\n");
 	printf("|                                  Escolha um tipo de senha: ");
 	tipo = getche();
@@ -35,6 +43,7 @@ int main(){
 	printf("|                                 Escolha o tamanho da senha: ");
 	scanf("%d", &tamanho);
 	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
 	
 	senhas = (char *) malloc(sizeof(char)*tamanho);
 	
@@ -46,6 +55,12 @@ int main(){
 		}
 		fprintf(saida, "\n");
 	}
+	printf("|                                Senhas criadas com sucesso !!!                                       |\n");
+	printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
+	free(senhas);
+	fclose(entrada);
+	fclose(saida);
 	
 	return 0;
 }
