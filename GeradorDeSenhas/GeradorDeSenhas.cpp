@@ -68,6 +68,8 @@ int main(int argc, char **argv){
 void GeraSenha(int tam, char tipo, char *senha){
 	char aux;
 	int i, a = 0;
+	bool maiusculas = false, minusculas = false, numeros = false, caracteres = false;
+	
 	switch(tipo){
 		case 'a':
 			//alg  48-57
@@ -77,77 +79,112 @@ void GeraSenha(int tam, char tipo, char *senha){
 			break;
 		case 'b':
 			//mai  65-90    min 97-122
-			for(i = 0; i < tam; i++){
-				aux = rand() % (26 + 26); // maiusculas e minusculas
-				if(aux < 26)
-					aux += 65;
-				else
-					aux += 97 - 26;
-				senha[i] = aux;
+			while(!(maiusculas && minusculas)){
+				maiusculas = minusculas = false;
+				for(i = 0; i < tam; i++){
+					aux = rand() % (26 + 26); // maiusculas e minusculas
+					if(aux < 26){
+						aux += 65;
+						maiusculas = true;
+					}
+					else{
+						aux += 97 - 26;
+						minusculas = true;
+					}
+					senha[i] = aux;
+				}
 			}
 			break;
 		case 'c':
-			for(i = 0; i < tam; i++){
-				aux = rand() % (10 + 26); // numeros e maiusculas
-				if(aux < 10)
-					aux += 48;
-				else
-					aux += 65 - 10;
-				senha[i] = aux;
+			while(!(maiusculas && numeros)){
+			maiusculas = numeros = false;
+				for(i = 0; i < tam; i++){
+					aux = rand() % (10 + 26); // numeros e maiusculas
+					if(aux < 10){
+						aux += 48;
+						numeros = true;
+					}
+					else{
+						aux += 65 - 10;
+						maiusculas = true;
+					}
+					senha[i] = aux;
+				}
 			}
 			break;
 		case 'd':
-			for(i = 0; i < tam; i++){
-				aux = rand() % (10 + 26 + 26); // numeros, maiusculas e minusculas
-				if(aux < 10)
-					aux += 48;
-				else if(aux < 10+26)
-					aux += 65 - 10;
-				else
-					aux += 97 - 10 - 26;
-				senha[i] = aux;
+			while(!(maiusculas && minusculas && numeros)){
+				maiusculas = minusculas = numeros = false;
+				for(i = 0; i < tam; i++){
+					aux = rand() % (10 + 26 + 26); // numeros, maiusculas e minusculas
+					if(aux < 10){
+						aux += 48;
+						numeros = true;
+					}
+					else if(aux < 10+26){
+						aux += 65 - 10;
+						maiusculas = true;
+					}
+					else{
+						aux += 97 - 10 - 26;
+						minusculas = true;
+					}
+					senha[i] = aux;
+				}
 			}
 			break;
 		case 'e':
 			//35 36 38 45 58 63 64 95
 			// #  $  &  -  :  ?  @  _
-			for(i = 0; i < tam; i++){
-				aux = rand() % (10 + 26 + 26 + 8); // numeros, maiusculas e minusculas e caracteres
-				if(aux < 10)
-					aux += 48;
-				else if(aux < 10+26)
-					aux += 65 - 10;
-				else if(aux < 10+26+26)
-					aux += 97 - 10 - 26;
-				else if(aux < 10+26+26+2)
-					aux += 35 - 10 - 26 -26;
-				else {
-					aux -= (10 + 26 + 26 + 2);
-					switch(aux){
-						case 0:
-							aux = 38;
-							break;
-						case 1:
-							aux = 45;
-							break;
-						case 2:
-							aux = 58;
-							break;
-						case 3:
-							aux = 63;
-							break;
-						case 4:
-							aux = 64;
-							break;
-						case 5:
-							aux = 95;
-							break;
-						default:
-							printf("algo deu errado");
-							break;
+			while(!(maiusculas && minusculas && numeros && caracteres)){
+				maiusculas = minusculas = numeros = caracteres = false;
+				for(i = 0; i < tam; i++){
+					aux = rand() % (10 + 26 + 26 + 8); // numeros, maiusculas e minusculas e caracteres
+					if(aux < 10){
+						aux += 48;
+						numeros = true;
 					}
-				}
+					else if(aux < 10+26){
+						aux += 65 - 10;
+						maiusculas = true;
+					}
+					else if(aux < 10+26+26){
+						aux += 97 - 10 - 26;
+						minusculas = true;
+					}
+					else if(aux < 10+26+26+2){
+						aux += 35 - 10 - 26 -26;
+						caracteres = true;
+					}
+					else {
+						aux -= (10 + 26 + 26 + 2);
+						caracteres = true;
+						switch(aux){
+							case 0:
+								aux = 38;
+								break;
+							case 1:
+								aux = 45;
+								break;
+							case 2:
+								aux = 58;
+								break;
+							case 3:
+								aux = 63;
+								break;
+							case 4:
+								aux = 64;
+								break;
+							case 5:
+								aux = 95;
+								break;
+							default:
+								printf("algo deu errado");
+								break;
+						}
+					}
 				senha[i] = aux;
+				}
 			}
 			break;
 		default:
